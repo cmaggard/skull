@@ -10,7 +10,8 @@ defmodule Skull.MixProject do
       compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer: [plt_add_deps: :transitive]
     ]
   end
 
@@ -32,8 +33,9 @@ defmodule Skull.MixProject do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    project_specific = [
-      {:mix_test_watch, "~>1.0", only: :dev, runtime: false}
+    testing = [
+      {:mix_test_watch, "~>1.0", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.1", only: :dev, runtime: false}
     ]
     phoenix_generated = [
       {:phoenix, "~> 1.6.0-rc.0", override: true},
@@ -49,7 +51,7 @@ defmodule Skull.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"}
     ]
-    project_specific ++ phoenix_generated
+    testing ++ phoenix_generated
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
