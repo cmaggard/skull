@@ -32,7 +32,10 @@ defmodule Skull.MixProject do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [
+    project_specific = [
+      {:mix_test_watch, "~>1.0", only: :dev, runtime: false}
+    ]
+    phoenix_generated = [
       {:phoenix, "~> 1.6.0-rc.0", override: true},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
@@ -46,6 +49,7 @@ defmodule Skull.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"}
     ]
+    project_specific ++ phoenix_generated
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
