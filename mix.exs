@@ -37,6 +37,7 @@ defmodule Skull.MixProject do
       {:mix_test_watch, "~>1.0", only: :dev, runtime: false},
       {:dialyxir, "~> 1.1", only: :dev, runtime: false}
     ]
+
     phoenix_generated = [
       {:phoenix, "~> 1.6.0-rc.0", override: true},
       {:phoenix_html, "~> 3.0"},
@@ -51,6 +52,7 @@ defmodule Skull.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"}
     ]
+
     testing ++ phoenix_generated
   end
 
