@@ -22,6 +22,4 @@ defmodule Skull.Game do
     {_player, game} = pop_in(game, [:players, ref])
     {:ok, game}
   end
-
-  end
 end
