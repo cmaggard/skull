@@ -2,6 +2,7 @@ defmodule Skull.GameTest do
   use ExUnit.Case
 
   alias Skull.Game
+  alias Skull.Game.Query
 
   describe "new_game/0" do
     test "builds a new game" do
@@ -15,7 +16,7 @@ defmodule Skull.GameTest do
         Game.new_game()
         |> add_player()
 
-      assert Game.player_count(game) == 1
+      assert Query.player_count(game) == 1
     end
 
     test "adding another player when there are six players fails" do
@@ -41,7 +42,7 @@ defmodule Skull.GameTest do
         |> add_player(ref: ref)
 
       {:ok, game} = Game.remove_player(game, ref)
-      assert Game.player_count(game) == 0
+      assert Query.player_count(game) == 0
     end
   end
 

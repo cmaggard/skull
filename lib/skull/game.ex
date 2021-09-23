@@ -1,13 +1,15 @@
 defmodule Skull.Game do
   defstruct players: []
 
+  alias Skull.Game.Query
+
   def new_game do
     %__MODULE__{}
   end
 
-  def add_player(game, name: name, pid: pid, ref: ref) do
+  def add_player(game, _args = [name: name, pid: pid, ref: ref]) do
     cond do
-      player_count(game) == 6 ->
+      Query.player_count(game) == 6 ->
         {{:error, :player_count_exceeded}, game}
 
       true ->
@@ -21,7 +23,5 @@ defmodule Skull.Game do
     {:ok, %{game | players: new_players}}
   end
 
-  def player_count(game) do
-    length(game.players)
   end
 end
