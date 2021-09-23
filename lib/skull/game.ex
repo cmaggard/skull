@@ -1,10 +1,10 @@
 defmodule Skull.Game do
-  defstruct players: []
-
   alias Skull.Game.Query
 
   def new_game do
-    %__MODULE__{}
+    %{
+      players: %{}
+    }
   end
 
   def add_player(game, _args = [name: name, pid: pid, ref: ref]) do
@@ -13,14 +13,14 @@ defmodule Skull.Game do
         {{:error, :player_count_exceeded}, game}
 
       true ->
-        game = %{game | players: [{ref, pid, name} | game.players]}
+        game = put_in(game, [:players, ref], %{pid: pid, name: name})
         {:ok, game}
     end
   end
 
   def remove_player(game, ref) do
-    new_players = Enum.reject(game.players, fn {p_ref, _pid, _name} -> ref == p_ref end)
-    {:ok, %{game | players: new_players}}
+    {_player, game} = pop_in(game, [:players, ref])
+    {:ok, game}
   end
 
   end

@@ -6,7 +6,7 @@ defmodule Skull.GameTest do
 
   describe "new_game/0" do
     test "builds a new game" do
-      assert is_struct(Game.new_game(), Game)
+      assert is_map(Game.new_game())
     end
   end
 
