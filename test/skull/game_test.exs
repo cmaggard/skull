@@ -35,13 +35,13 @@ defmodule Skull.GameTest do
 
   describe "remove_player/2" do
     test "it removes a player from the game" do
-      ref = make_ref()
+      id = Skull.Helper.generate_id()
 
       {:ok, game} =
         Game.new_game()
-        |> add_player(ref: ref)
+        |> add_player(id: id)
 
-      {:ok, game} = Game.remove_player(game, ref)
+      {:ok, game} = Game.remove_player(game, id)
       assert Query.player_count(game) == 0
     end
   end
@@ -49,7 +49,7 @@ defmodule Skull.GameTest do
   defp add_player(game, args \\ []) do
     name = Keyword.get(args, :name, "Cody")
     pid = Keyword.get(args, :pid, self())
-    ref = Keyword.get(args, :ref, make_ref())
-    Game.add_player(game, name: name, pid: pid, ref: ref)
+    id = Keyword.get(args, :id, Skull.Helper.generate_id())
+    Game.add_player(game, name: name, pid: pid, id: id)
   end
 end

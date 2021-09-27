@@ -7,19 +7,19 @@ defmodule Skull.Game do
     }
   end
 
-  def add_player(game, _args = [name: name, pid: pid, ref: ref]) do
+  def add_player(game, _args = [name: name, pid: pid, id: id]) do
     cond do
       Query.player_count(game) == 6 ->
         {{:error, :player_count_exceeded}, game}
 
       true ->
-        game = put_in(game, [:players, ref], %{pid: pid, name: name})
+        game = put_in(game, [:players, id], %{pid: pid, name: name})
         {:ok, game}
     end
   end
 
-  def remove_player(game, ref) do
-    {_player, game} = pop_in(game, [:players, ref])
+  def remove_player(game, id) do
+    {_player, game} = pop_in(game, [:players, id])
     {:ok, game}
   end
 end
